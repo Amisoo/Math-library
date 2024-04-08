@@ -1,2 +1,2 @@
 # Math-library
-A library of math in python
+A library of math in python. Polynome classes with addition, substraction method and deriative etc ...
