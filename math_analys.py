@@ -1,4 +1,3 @@
-
 class Polynome:
 
     def __str__(self) -> str:
@@ -27,7 +26,7 @@ class Polynome:
         return string
 
 
-    def __add__(self, poly):
+    def __add__(self, poly) -> "polynome":
         length1 = len(self.values)
         length2 = len(poly.values)
         poly = poly.values
@@ -57,7 +56,7 @@ class Polynome:
                 final.append(self.values[i+j] + poly[j])
         return Polynome(final)
 
-    def __sub__(self, poly):
+    def __sub__(self, poly) -> "Polynome":
             length1 = len(self.values)
             length2 = len(poly.values)
             poly = [-x for x in poly.values]  # Negate the values of poly
@@ -86,17 +85,25 @@ class Polynome:
                     final.append(self.values[i + j] + poly[j])
             return Polynome(final)
 
+    def dx(self) -> "Polynome":
+        derivative_values = []
+        for i, coeff in enumerate(self.values[::-1]):
+            if i > 0:
+                derivative_values.append(coeff * i)
+        return Polynome(derivative_values[::-1])
+
+
     def __init__(self, val: list[int]) -> None:
         self.values = val
-          
 
+        self.polynome = {}
 
-    def __init__(self, val : list[int]) -> None:
-        self.values = val
+        for i in range(len(self.values)):
+            self.polynome[self.values[i]] = len(self.values) - i + 1
+
+        
     
 
-
-poly = Polynome([1, 2, 3])
-poly2 = Polynome([1, 2])
-
-print(poly2 - poly)
+p = Polynome([2, -3, 0, 4])  # Example polynomial 2x^3 - 3x^2 + 4
+derivative_p = p.dx()  # Compute the derivative
+print(derivative_p)  # Output: "6x^2 - 6x"
