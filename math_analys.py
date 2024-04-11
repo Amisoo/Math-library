@@ -1,3 +1,4 @@
+
 class Polynome:
 
     def __str__(self) -> str:
@@ -93,6 +94,13 @@ class Polynome:
         return Polynome(derivative_values[::-1])
 
 
+    def primitive(self) -> "Polynome":
+        primitive_values = [0]  # Constant term is always zero in the primitive
+        for i, coeff in enumerate(self.values):
+            primitive_values.append(coeff / (i + 1))
+        return Polynome(primitive_values)
+        
+
     def __init__(self, val: list[int]) -> None:
         self.values = val
 
@@ -104,6 +112,35 @@ class Polynome:
         
     
 
-p = Polynome([2, -3, 0, 4])  # Example polynomial 2x^3 - 3x^2 + 4
-derivative_p = p.dx()  # Compute the derivative
-print(derivative_p)  # Output: "6x^2 - 6x"
+
+def factiorial(n: int) -> int:
+    if n == 0:
+        return 1
+    f = 1
+    for i in range(1, n+1):
+        f *= i
+    return f
+
+
+def e(n):
+    e = 0
+    for k in range(10):
+        e += 1/factiorial(k)
+    return e**n
+
+def pi(*args) -> float:
+    pi_approximation = 0
+    sign = 1
+    num_points = 1000000000000
+    if args:
+        num_points = args[0]
+
+    for i in range(1, num_points*2, 2):
+        pi_approximation += sign * (1 / i)
+        sign *= -1
+
+    pi_approximation *= 4
+    return pi_approximation
+
+    
+
